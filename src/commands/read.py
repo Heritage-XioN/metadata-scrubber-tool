@@ -20,7 +20,7 @@ log = logging.getLogger("metadata-scrubber")
 
 
 # fmt: off
-def get_metadata(
+def read(
     file_path: Path = typer.Argument(
         exists=True,  # Must exist on the filesystem
         file_okay=True,  # Can be a file

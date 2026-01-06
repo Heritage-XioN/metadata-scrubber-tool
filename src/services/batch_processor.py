@@ -99,7 +99,7 @@ class BatchProcessor:
             if self.dry_run:
                 # Verify the file can be handled (will raise if not)
                 MetadataFactory.get_handler(str(file))
-                output_path = self._get_unique_output_path(file)
+                output_path = self._get_unique_output_path(file, reserve=False)
                 result = FileResult(
                     filepath=file,
                     success=True,
@@ -250,7 +250,7 @@ class BatchProcessor:
             # Best effort cleanup - don't fail if we can't delete
             pass
 
-    def _get_unique_output_path(self, file: Path) -> Path:
+    def _get_unique_output_path(self, file: Path, reserve: bool = True) -> Path:
         """
         Generate unique output path with suffix (_1, _2) if file exists.
 
@@ -258,6 +258,8 @@ class BatchProcessor:
 
         Args:
             file: Original file path.
+            reserve: If True, create placeholder file to reserve the path.
+                     Set to False for dry-run mode.
 
         Returns:
             Unique path in output directory that doesn't conflict with existing files.
@@ -278,7 +280,8 @@ class BatchProcessor:
                 )
                 counter += 1
 
-            # Create empty placeholder to reserve the path
-            output_path.touch()
+            # Create empty placeholder to reserve the path (skip in dry-run)
+            if reserve:
+                output_path.touch()
 
             return output_path
