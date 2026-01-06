@@ -71,7 +71,7 @@ python -m src.main scrub ./photos/ -r -ext jpg --dry-run
 |---------|---------|
 | `read` | `-r` / `--recursive`, `-ext` / `--extension` |
 | `scrub` | `-r`, `-ext`, `-o` / `--output`, `-d` / `--dry-run`, `-w` / `--workers` |
-| Global | `-v` / `--verbose` |
+| Global | `-V` / `--verbose`,  `-v` / `--version` |
 
 ## 🏗️ Architecture
 
