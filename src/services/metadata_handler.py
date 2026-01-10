@@ -23,7 +23,6 @@ class MetadataHandler(ABC):
         metadata: Dictionary containing the extracted metadata.
         processed_metadata: Dictionary containing metadata after processing.
     """
-
     def __init__(self, filepath: str):
         """
         Initialize the metadata handler.

@@ -34,7 +34,6 @@ class JpegProcessor:
         tags_to_delete: List of EXIF tag IDs to remove.
         data: Dict of extracted metadata with human-readable keys.
     """
-
     def __init__(self):
         """Initialize the JPEG processor with empty data structures."""
         self.tags_to_delete: list[int] = []
@@ -69,15 +68,13 @@ class JpegProcessor:
 
                 # Get the human-readable name for the tag
                 tag_name = str(
-                    tag_info.get("name", "Unknown Tag") if tag_info else "Unknown Tag"
+                    tag_info.get("name",
+                                 "Unknown Tag") if tag_info else "Unknown Tag"
                 )
 
                 # Exclude tags necessary for image display integrity
-                if (
-                    tag_name == "Orientation"
-                    or tag_name == "ColorSpace"
-                    or tag_name == "ExifTag"
-                ):
+                if (tag_name == "Orientation" or tag_name == "ColorSpace"
+                        or tag_name == "ExifTag"):
                     continue
 
                 # Save to list and dict

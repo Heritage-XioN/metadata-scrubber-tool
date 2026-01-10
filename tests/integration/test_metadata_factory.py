@@ -46,8 +46,7 @@ def test_read_image_metadata(x):
 
     if isinstance(handler, (JpegProcessor, PngProcessor)):
         assert (
-            handler.tags_to_delete is not None
-            or handler.text_keys_to_delete is not None
+            handler.tags_to_delete is not None or handler.text_keys_to_delete is not None
         )
 
 
@@ -66,7 +65,7 @@ def test_wipe_image_metadata(x):
 def test_save_processed_image_metadata(x):
     """Test saving processed image metadata through factory."""
     output_dir = Path("./tests/assets/output")
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents = True, exist_ok = True)
 
     handler = MetadataFactory.get_handler(str(x))
     handler.read()
@@ -116,7 +115,7 @@ def test_wipe_pdf_metadata_via_factory():
 def test_save_processed_pdf_metadata_via_factory():
     """Test saving processed PDF metadata through MetadataFactory."""
     output_dir = Path("./tests/assets/output")
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents = True, exist_ok = True)
 
     handler = MetadataFactory.get_handler(PDF_TEST_FILE)
     handler.read()
@@ -163,7 +162,7 @@ def test_wipe_excel_metadata_via_factory():
 def test_save_processed_excel_metadata_via_factory():
     """Test saving processed Excel metadata through MetadataFactory."""
     output_dir = Path("./tests/assets/output")
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents = True, exist_ok = True)
 
     handler = MetadataFactory.get_handler(XLSX_TEST_FILE)
     handler.read()
@@ -220,7 +219,7 @@ def test_save_processed_pptx_metadata_via_factory():
 
     PPTX_TEST_FILE = get_pptx_test_file()
     output_dir = Path("./tests/assets/output")
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents = True, exist_ok = True)
 
     handler = MetadataFactory.get_handler(PPTX_TEST_FILE)
     handler.read()
@@ -279,7 +278,7 @@ def test_save_processed_docx_metadata_via_factory():
 
     DOCX_TEST_FILE = get_docx_test_file()
     output_dir = Path("./tests/assets/output")
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents = True, exist_ok = True)
 
     handler = MetadataFactory.get_handler(DOCX_TEST_FILE)
     handler.read()

@@ -32,14 +32,14 @@ def setup_logging(verbose: bool = False):
     logging.getLogger().handlers.clear()
 
     logging.basicConfig(
-        level=level,
-        format="%(message)s",
-        datefmt="[%X]",
-        handlers=[
+        level = level,
+        format = "%(message)s",
+        datefmt = "[%X]",
+        handlers = [
             RichHandler(
-                rich_tracebacks=True,  # Beautiful colorful stack traces
-                markup=True,  # Allow [bold red] styles in logs
-                show_path=False,  # Hide line number (cleaner for CLI tools)
+                rich_tracebacks = True,  # Beautiful colorful stack traces
+                markup = True,  # Allow [bold red] styles in logs
+                show_path = False,  # Hide line number (cleaner for CLI tools)
             )
         ],
     )

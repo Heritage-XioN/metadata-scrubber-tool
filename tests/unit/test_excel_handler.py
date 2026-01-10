@@ -68,7 +68,7 @@ def test_save_processed_excel_metadata(xlsx_file):
     Test saving processed Excel to output path.
     """
     output_dir = Path("./tests/assets/output")
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents = True, exist_ok = True)
 
     handler = ExcelHandler(xlsx_file)
     handler.read()
@@ -99,7 +99,7 @@ def test_output_file_has_less_metadata(xlsx_file):
     Test that the output file has metadata stripped.
     """
     output_dir = Path("./tests/assets/output")
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents = True, exist_ok = True)
 
     # Process original file
     handler = ExcelHandler(xlsx_file)

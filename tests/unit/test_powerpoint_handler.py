@@ -66,7 +66,7 @@ def test_save_processed_pptx_metadata(pptx_file):
     Test saving processed PowerPoint to output path.
     """
     output_dir = Path("./tests/assets/output")
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents = True, exist_ok = True)
 
     handler = PowerpointHandler(pptx_file)
     handler.read()
@@ -97,7 +97,7 @@ def test_output_file_has_wiped_metadata(pptx_file):
     Test that the output file has metadata wiped.
     """
     output_dir = Path("./tests/assets/output")
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents = True, exist_ok = True)
 
     # Process original file
     handler = PowerpointHandler(pptx_file)

@@ -44,7 +44,6 @@ class ExcelHandler(MetadataHandler):
     Attributes:
         keys_to_delete: List of property names to be wiped.
     """
-
     def __init__(self, filepath: str):
         """
         Initialize the Excel handler.
@@ -66,7 +65,7 @@ class ExcelHandler(MetadataHandler):
             UnsupportedFormatError: If file extension is not a supported Excel format.
         """
         ext = Path(self.filepath).suffix.lower()
-        normalised = FORMAT_MAP.get(ext[1:])  # Remove leading dot
+        normalised = FORMAT_MAP.get(ext[1 :])  # Remove leading dot
         if normalised is None:
             raise UnsupportedFormatError(f"Unsupported format: {ext}")
 
@@ -152,7 +151,7 @@ class ExcelHandler(MetadataHandler):
         # Use keep_vba=True for macro-enabled workbooks
         detected_format = self._detect_format()
         if detected_format == "xlsm":
-            wb = load_workbook(destination_file_path, keep_vba=True)
+            wb = load_workbook(destination_file_path, keep_vba = True)
         else:
             wb = load_workbook(destination_file_path)
 

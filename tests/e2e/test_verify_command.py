@@ -13,6 +13,7 @@ from typer.testing import CliRunner
 
 from src.main import app
 
+
 runner = CliRunner()
 
 
@@ -37,7 +38,11 @@ def test_verify_command_jpeg_clean_status(output_dir):
 
     # First scrub the file
     scrub_result = runner.invoke(
-        app, ["scrub", JPG_TEST_FILE, "--output", str(output_dir)]
+        app,
+        ["scrub",
+         JPG_TEST_FILE,
+         "--output",
+         str(output_dir)]
     )
     assert scrub_result.exit_code == 0
 
@@ -90,7 +95,11 @@ def test_verify_command_pdf_clean_status(output_dir):
 
     # First scrub the file
     scrub_result = runner.invoke(
-        app, ["scrub", PDF_TEST_FILE, "--output", str(output_dir)]
+        app,
+        ["scrub",
+         PDF_TEST_FILE,
+         "--output",
+         str(output_dir)]
     )
     assert scrub_result.exit_code == 0
 
@@ -116,7 +125,11 @@ def test_verify_command_xlsx_clean_status(output_dir):
 
     # First scrub the file
     scrub_result = runner.invoke(
-        app, ["scrub", XLSX_TEST_FILE, "--output", str(output_dir)]
+        app,
+        ["scrub",
+         XLSX_TEST_FILE,
+         "--output",
+         str(output_dir)]
     )
     assert scrub_result.exit_code == 0
 
@@ -142,7 +155,11 @@ def test_verify_command_pptx_clean_status(output_dir):
 
     # First scrub the file
     scrub_result = runner.invoke(
-        app, ["scrub", PPTX_TEST_FILE, "--output", str(output_dir)]
+        app,
+        ["scrub",
+         PPTX_TEST_FILE,
+         "--output",
+         str(output_dir)]
     )
     assert scrub_result.exit_code == 0
 
@@ -168,7 +185,11 @@ def test_verify_command_docx_clean_status(output_dir):
 
     # First scrub the file
     scrub_result = runner.invoke(
-        app, ["scrub", DOCX_TEST_FILE, "--output", str(output_dir)]
+        app,
+        ["scrub",
+         DOCX_TEST_FILE,
+         "--output",
+         str(output_dir)]
     )
     assert scrub_result.exit_code == 0
 
@@ -189,7 +210,10 @@ def test_verify_command_docx_clean_status(output_dir):
 def test_verify_command_original_file_not_found():
     """Test verify command handles missing original file."""
     result = runner.invoke(
-        app, ["verify", "nonexistent_file.jpg", "also_nonexistent.jpg"]
+        app,
+        ["verify",
+         "nonexistent_file.jpg",
+         "also_nonexistent.jpg"]
     )
 
     assert result.exit_code != 0

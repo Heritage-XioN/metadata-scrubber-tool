@@ -27,6 +27,7 @@ from src.services.batch_processor import BatchProcessor
 from src.utils.display import print_batch_summary
 from src.utils.get_target_files import get_target_files
 
+
 console = Console()
 log = logging.getLogger("metadata-scrubber")
 
@@ -93,7 +94,9 @@ def scrub(
 
     # Show dry-run banner
     if dry_run:
-        console.print("\n[bold yellow]🔍 DRY-RUN MODE[/bold yellow] - No files will be modified.\n")
+        console.print(
+            "\n[bold yellow]🔍 DRY-RUN MODE[/bold yellow] - No files will be modified.\n"
+        )
 
     # Collect files to process
     files = list(get_target_files(file_path, ext)) if recursive else [file_path]
@@ -104,25 +107,31 @@ def scrub(
 
     # Show worker count for batch operations
     if len(files) > 1:
-        console.print(f"[dim]Processing {len(files)} files with {workers} workers...[/dim]\n")
+        console.print(
+            f"[dim]Processing {len(files)} files with {workers} workers...[/dim]\n"
+        )
 
     # Initialize processor with worker count
-    processor = BatchProcessor(output_dir=output_dir, dry_run=dry_run, max_workers=workers)
+    processor = BatchProcessor(
+        output_dir = output_dir,
+        dry_run = dry_run,
+        max_workers = workers
+    )
 
     # Process with thread-safe progress bar
     with Progress(
-        SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
-        BarColumn(),
-        MofNCompleteColumn(),
-        TaskProgressColumn(),
-        TimeElapsedColumn(),
-        console=console,
-        refresh_per_second=10,  # Smooth updates for concurrent processing
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            BarColumn(),
+            MofNCompleteColumn(),
+            TaskProgressColumn(),
+            TimeElapsedColumn(),
+            console = console,
+            refresh_per_second = 10,  # Smooth updates for concurrent processing
     ) as progress:
         task_id = progress.add_task(
             "[cyan]Scrubbing metadata...",
-            total=len(files),
+            total = len(files),
         )
 
         def on_file_complete(result):
@@ -130,12 +139,12 @@ def scrub(
             status = "✓" if result.success else "✗"
             progress.update(
                 task_id,
-                description=f"[cyan]{status} {result.filepath.name}",
-                advance=1,
+                description = f"[cyan]{status} {result.filepath.name}",
+                advance = 1,
             )
 
         # Use concurrent batch processing
-        processor.process_batch(files, progress_callback=on_file_complete)
+        processor.process_batch(files, progress_callback = on_file_complete)
 
     # Display summary
     print_batch_summary(processor.get_summary())

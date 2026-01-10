@@ -48,7 +48,7 @@ class ComparisonReport:
 
     original_file: str
     processed_file: str
-    comparisons: list[PropertyComparison] = field(default_factory=list)
+    comparisons: list[PropertyComparison] = field(default_factory = list)
     status: VerificationStatus = VerificationStatus.CLEAN
     removed_count: int = 0
     preserved_count: int = 0
@@ -80,8 +80,10 @@ class ReportGenerator:
 
     def compare(
         self,
-        before: dict[str, Any],
-        after: dict[str, Any],
+        before: dict[str,
+                     Any],
+        after: dict[str,
+                    Any],
         preserved_keys: set[str] | None = None,
     ) -> ComparisonReport:
         """
@@ -99,8 +101,8 @@ class ReportGenerator:
             preserved_keys = self.PRESERVED_PROPERTIES
 
         report = ComparisonReport(
-            original_file="",
-            processed_file="",
+            original_file = "",
+            processed_file = "",
         )
 
         # Get all unique keys from both dictionaries
@@ -112,17 +114,20 @@ class ReportGenerator:
 
             # Determine property status
             status = self._determine_status(
-                key, before_value, after_value, preserved_keys
+                key,
+                before_value,
+                after_value,
+                preserved_keys
             )
 
             is_sensitive = key not in preserved_keys
 
             comparison = PropertyComparison(
-                name=key,
-                before_value=before_value,
-                after_value=after_value,
-                status=status,
-                is_sensitive=is_sensitive,
+                name = key,
+                before_value = before_value,
+                after_value = after_value,
+                status = status,
+                is_sensitive = is_sensitive,
             )
             report.comparisons.append(comparison)
 
@@ -214,14 +219,14 @@ class ReportGenerator:
         }
 
         table = Table(
-            title="[bold]Verification Report[/bold]",
-            show_header=True,
-            header_style="bold",
+            title = "[bold]Verification Report[/bold]",
+            show_header = True,
+            header_style = "bold",
         )
 
-        table.add_column("Property", style="cyan")
-        table.add_column("Before", style="dim")
-        table.add_column("After", justify="left")
+        table.add_column("Property", style = "cyan")
+        table.add_column("Before", style = "dim")
+        table.add_column("After", justify = "left")
 
         for comp in report.comparisons:
             before_str = self._format_value(comp.before_value)
@@ -248,7 +253,7 @@ class ReportGenerator:
             return "[dim]None[/dim]"
         if isinstance(value, str):
             if len(value) > 30:
-                return value[:27] + "..."
+                return value[: 27] + "..."
             return value if value.strip() else "[dim]-[/dim]"
         return str(value)
 
@@ -283,8 +288,10 @@ class ReportGenerator:
         self,
         original_file: str,
         processed_file: str,
-        before_metadata: dict[str, Any],
-        after_metadata: dict[str, Any],
+        before_metadata: dict[str,
+                              Any],
+        after_metadata: dict[str,
+                             Any],
     ) -> ComparisonReport:
         """
         Generate a full comparison report between two files.

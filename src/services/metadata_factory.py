@@ -28,7 +28,6 @@ class MetadataFactory:
         - Images: .jpg, .jpeg, .png
         - Future: .pdf, .docx, .xlsx, .pptx
     """
-
     @staticmethod
     def get_handler(filepath: str):
         """

@@ -15,6 +15,7 @@ from src.services.metadata_factory import MetadataFactory
 from src.utils.display import print_metadata_table
 from src.utils.get_target_files import get_target_files
 
+
 console = Console()
 log = logging.getLogger("metadata-scrubber")
 

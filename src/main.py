@@ -20,9 +20,8 @@ from src.commands.verify import verify
 from src.utils.logger import setup_logging
 
 # Initialize the Typer app with helpful defaults
-app = typer.Typer(no_args_is_help=True, pretty_exceptions_show_locals=False)
+app = typer.Typer(no_args_is_help = True, pretty_exceptions_show_locals = False)
 log = logging.getLogger("metadata-scrubber")
-
 
 __version__ = "0.3.0"
 
@@ -71,9 +70,9 @@ def main(
 # fmt: on
 
 # register commands
-app.command(name="read")(read)
-app.command(name="scrub")(scrub)
-app.command(name="verify")(verify)
+app.command(name = "read")(read)
+app.command(name = "scrub")(scrub)
+app.command(name = "verify")(verify)
 
 # run app
 if __name__ == "__main__":

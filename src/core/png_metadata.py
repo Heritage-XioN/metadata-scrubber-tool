@@ -95,7 +95,7 @@ class PngProcessor:
                     found_metadata = True
                     if isinstance(value, bytes):
                         try:
-                            value = value.decode("utf-8", errors="replace")
+                            value = value.decode("utf-8", errors = "replace")
                         except Exception:
                             value = str(value)
 
@@ -143,7 +143,9 @@ class PngProcessor:
             raise MetadataProcessingError(f"Error processing PNG EXIF: {str(e)}")
 
     def get_clean_pnginfo(
-        self, img: Image, keys_to_remove: list[str] | None = None
+        self,
+        img: Image,
+        keys_to_remove: list[str] | None = None
     ) -> PngImagePlugin.PngInfo | None:
         """
         Create a new PngInfo with sensitive keys removed.
