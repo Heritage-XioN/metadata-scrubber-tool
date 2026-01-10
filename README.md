@@ -1,6 +1,6 @@
 # 🔒 Metadata Scrubber
 
-A privacy-focused CLI tool that removes sensitive metadata (EXIF, GPS, author info) from image files. Perfect for protecting your privacy before sharing photos online.
+A privacy-focused CLI tool that removes sensitive metadata from files. Supports images, PDFs, and Microsoft Office documents. Perfect for protecting your privacy before sharing files online.
 
 [![Tests](https://github.com/Heritage-XioN/metadata-scrubber-tool/actions/workflows/test.yml/badge.svg)](https://github.com/Heritage-XioN/metadata-scrubber-tool/actions)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://python.org)
@@ -8,12 +8,22 @@ A privacy-focused CLI tool that removes sensitive metadata (EXIF, GPS, author in
 
 ## ✨ Features
 
-- **Multi-format support** - JPEG, PNG (with PDF/Office planned)
+- **Multi-format support** - Images (JPEG, PNG), PDFs, and Office docs (Word, Excel, PowerPoint)
 - **Concurrent processing** - Process 1000+ files efficiently with ThreadPoolExecutor
 - **Dry-run mode** - Preview what would be scrubbed without making changes
-- **Smart format detection** - Uses Pillow's format detection, not just file extensions
+- **Smart format detection** - Uses library-level format detection, not just file extensions
 - **Beautiful CLI** - Rich progress bars and formatted output
-- **Privacy-first** - Removes GPS coordinates, camera info, timestamps, author data
+- **Privacy-first** - Removes GPS coordinates, author info, timestamps, camera data
+
+## 📁 Supported Formats
+
+| Category | Extensions | Metadata Removed |
+|----------|------------|------------------|
+| **Images** | `.jpg`, `.jpeg`, `.png` | EXIF, GPS, camera info, timestamps |
+| **PDF** | `.pdf` | Author, creator, producer, dates |
+| **Word** | `.docx` | Author, title, comments, keywords |
+| **Excel** | `.xlsx`, `.xlsm`, `.xltx`, `.xltm` | Author, title, company, comments |
+| **PowerPoint** | `.pptx`, `.pptm`, `.potx`, `.potm` | Author, title, comments, keywords |
 
 ## 🚀 Quick Start
 
@@ -33,13 +43,13 @@ uv sync
 
 ```bash
 # Read metadata from a file
-mst read photo.jpg
+mst read document.pdf
 
 # Scrub metadata and save to output folder
 mst scrub photo.jpg --output ./cleaned
 
 # Batch process entire folder
-mst scrub ./photos -r -ext jpg --output ./cleaned
+mst scrub ./documents -r -ext docx --output ./cleaned
 ```
 
 ## 📖 Commands
@@ -48,16 +58,17 @@ mst scrub ./photos -r -ext jpg --output ./cleaned
 
 ```bash
 mst read photo.jpg                      # Single file
-mst read ./photos -r -ext jpg           # Directory (recursive)
+mst read report.pdf                     # PDF file
+mst read ./docs -r -ext docx            # All Word docs recursively
 ```
 
 ### `mst scrub` - Remove Metadata
 
 ```bash
 mst scrub photo.jpg --output ./out      # Single file
-mst scrub ./photos -r -ext jpg -o ./out # Directory
-mst scrub ./photos -r -ext jpg --dry-run # Preview only
-mst scrub ./photos -r -ext jpg -w 8     # 8 concurrent workers
+mst scrub ./photos -r -ext jpg -o ./out # All JPEGs in directory
+mst scrub ./docs -r -ext pdf --dry-run  # Preview PDF scrubbing
+mst scrub ./files -r -ext xlsx -w 8     # 8 concurrent workers
 ```
 
 ### CLI Options
@@ -65,7 +76,7 @@ mst scrub ./photos -r -ext jpg -w 8     # 8 concurrent workers
 | Option | Description |
 |--------|-------------|
 | `-r`, `--recursive` | Process directories recursively |
-| `-ext`, `--extension` | Filter by file extension (jpg, png) |
+| `-ext`, `--extension` | Filter by file extension |
 | `-o`, `--output` | Output directory for cleaned files |
 | `-d`, `--dry-run` | Preview without making changes |
 | `-w`, `--workers` | Number of concurrent workers |
@@ -103,7 +114,12 @@ src/
 │   └── scrub.py            # Scrub metadata command
 ├── services/
 │   ├── metadata_factory.py # Factory for creating handlers
+│   ├── metadata_handler.py # Abstract base class
 │   ├── image_handler.py    # JPEG/PNG handler
+│   ├── pdf_handler.py      # PDF handler
+│   ├── excel_handler.py    # Excel handler
+│   ├── powerpoint_handler.py # PowerPoint handler
+│   ├── worddoc_handler.py  # Word document handler
 │   └── batch_processor.py  # Concurrent batch processing
 └── core/
     ├── jpeg_metadata.py    # JPEG EXIF processor
@@ -115,6 +131,7 @@ src/
 - **Original files are never modified** - processed copies are created
 - **Use `--dry-run`** to preview changes before committing
 - **GPS coordinates** are completely stripped for privacy
+- **Author information** is removed from all supported formats
 - **Always backup files** before scrubbing in production
 
 ## 📄 License

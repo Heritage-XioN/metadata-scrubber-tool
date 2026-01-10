@@ -22,7 +22,7 @@ app = typer.Typer(no_args_is_help=True, pretty_exceptions_show_locals=False)
 log = logging.getLogger("metadata-scrubber")
 
 
-__version__ = "0.1.1"
+__version__ = "0.2.0"
 
 
 # ---------------------------------------------------------
