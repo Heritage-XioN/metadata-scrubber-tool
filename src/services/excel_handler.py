@@ -86,6 +86,8 @@ class ExcelHandler(MetadataHandler):
             MetadataReadingError: If the workbook is password-protected.
             MetadataNotFoundError: If no properties are found.
         """
+        self.metadata.clear()
+        self.keys_to_delete.clear()
         wb = load_workbook(Path(self.filepath))
         try:
             if wb.security.workbookPassword is not None:
@@ -113,6 +115,7 @@ class ExcelHandler(MetadataHandler):
         Raises:
             MetadataNotFoundError: If no properties are found.
         """
+        self.processed_metadata.clear()
         wb = load_workbook(Path(self.filepath))
         try:
             if wb.properties is None:

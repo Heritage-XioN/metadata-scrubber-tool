@@ -90,6 +90,10 @@ class ImageHandler(MetadataHandler):
 
         Uses actual format detection to select the appropriate processor.
         """
+        self.metadata.clear()
+        self.text_keys_to_delete.clear()
+        self.tags_to_delete.clear()
+
         self.detected_format = self._detect_format()
         processor = self.processors.get(self.detected_format)
 
@@ -111,6 +115,8 @@ class ImageHandler(MetadataHandler):
 
         Uses actual format detection to select the appropriate processor.
         """
+        self.processed_metadata.clear()
+        self.clean_pnginfo = None
         # Use cached format if available, otherwise detect
         if not self.detected_format:
             self.detected_format = self._detect_format()

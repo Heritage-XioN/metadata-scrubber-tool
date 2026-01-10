@@ -97,6 +97,8 @@ class WorddocHandler(MetadataHandler):
         Raises:
             MetadataNotFoundError: If no properties are found.
         """
+        self.metadata.clear()
+        self.keys_to_delete.clear()
         doc = Document(str(Path(self.filepath)))
         try:
             if doc.core_properties is None:
@@ -122,6 +124,7 @@ class WorddocHandler(MetadataHandler):
         Raises:
             MetadataNotFoundError: If no properties are found.
         """
+        self.processed_metadata.clear()
         doc = Document(str(Path(self.filepath)))
         try:
             if doc.core_properties is None:

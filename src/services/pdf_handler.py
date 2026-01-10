@@ -71,6 +71,8 @@ class PDFHandler(MetadataHandler):
             MetadataReadingError: If the PDF is encrypted/password-protected.
             MetadataNotFoundError: If no metadata is found in the PDF.
         """
+        self.metadata.clear()
+        self.keys_to_delete.clear()
         with PdfReader(Path(self.filepath)) as reader:
             if reader.is_encrypted:
                 raise MetadataReadingError("File is encrypted.")
@@ -93,6 +95,7 @@ class PDFHandler(MetadataHandler):
         Raises:
             MetadataNotFoundError: If no metadata is found in the PDF.
         """
+        self.processed_metadata.clear()
         with PdfReader(Path(self.filepath)) as reader:
             metadata = reader.metadata
             if metadata is None:

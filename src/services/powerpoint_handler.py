@@ -103,6 +103,8 @@ class PowerpointHandler(MetadataHandler):
         Raises:
             MetadataNotFoundError: If no properties are found.
         """
+        self.metadata.clear()
+        self.keys_to_delete.clear()
         prs = Presentation(str(Path(self.filepath)))
         try:
             if prs.core_properties is None:
@@ -128,6 +130,7 @@ class PowerpointHandler(MetadataHandler):
         Raises:
             MetadataNotFoundError: If no properties are found.
         """
+        self.processed_metadata.clear()
         prs = Presentation(str(Path(self.filepath)))
         try:
             if prs.core_properties is None:
