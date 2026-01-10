@@ -8,8 +8,11 @@ extensibility for supporting new file formats (PDF, Office docs, etc.).
 
 from pathlib import Path
 
+from src.services.excel_handler import ExcelHandler
 from src.services.image_handler import ImageHandler
 from src.services.pdf_handler import PDFHandler
+from src.services.powerpoint_handler import PowerpointHandler
+from src.services.worddoc_handler import WorddocHandler
 from src.utils.exceptions import UnsupportedFormatError
 
 
@@ -41,19 +44,19 @@ class MetadataFactory:
             UnsupportedFormatError: If no handler is defined for the file type.
             ValueError: If the path is not a valid file.
         """
-        supported_extensions = ".jpg, .jpeg, .png"
+        supported_extensions = ".jpg, .jpeg, .png, .pdf, .docx, .xlsx, .xlsm, .xltx, .xltm, .pptx, .pptm, .potx, .potm"
         ext = Path(filepath).suffix.lower()
         if Path(filepath).is_file():
             if ext in [".jpg", ".jpeg", ".png"]:
                 return ImageHandler(filepath)
             elif ext == ".pdf":
                 return PDFHandler(filepath)
-
-            # TODO: implement other handlers
-            # elif ext == ".xlsx":
-            #     return ExcelHandler(filepath)
-            # elif ext == ".pptx":
-            #     return PowerPointHandler(filepath)
+            elif ext in [".xlsx", ".xlsm", ".xltx", ".xltm"]:
+                return ExcelHandler(filepath)
+            elif ext in [".pptx", ".pptm", ".potx", ".potm"]:
+                return PowerpointHandler(filepath)
+            elif ext == ".docx":
+                return WorddocHandler(filepath)
             else:
                 raise UnsupportedFormatError(
                     f"No handler defined for {ext} files. we curently only support {supported_extensions} files."
