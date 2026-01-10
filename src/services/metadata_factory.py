@@ -44,7 +44,7 @@ class MetadataFactory:
             UnsupportedFormatError: If no handler is defined for the file type.
             ValueError: If the path is not a valid file.
         """
-        supported_extensions = ".jpg, .jpeg, .png, .docx, .xlsx, .pptx"
+        supported_extensions = ".jpg, .jpeg, .png, .pdf, .docx, .xlsx, .xlsm, .xltx, .xltm, .pptx, .pptm, .potx, .potm"
         ext = Path(filepath).suffix.lower()
         if Path(filepath).is_file():
             if ext in [".jpg", ".jpeg", ".png"]:
