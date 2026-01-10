@@ -22,6 +22,7 @@ from tests.conftest import (
     get_xlsx_test_file,
 )
 
+
 runner = CliRunner()
 
 # Test file paths (cross-platform)
@@ -38,7 +39,7 @@ XLSX_DIR = get_test_xlsx_dir()
 def output_dir(tmp_path):
     """Create isolated output directory for each test using tmp_path."""
     output = tmp_path / "output"
-    output.mkdir(parents=True, exist_ok=True)
+    output.mkdir(parents = True, exist_ok = True)
     return output
 
 
@@ -58,7 +59,14 @@ def test_scrub_command_single_file_success(x, output_dir):
 def test_scrub_command_recursive_jpg_success(output_dir):
     """Test the 'scrub' command with recursive directory processing for JPG."""
     result = runner.invoke(
-        app, ["scrub", EXAMPLES_DIR, "-r", "-ext", "jpg", "--output", str(output_dir)]
+        app,
+        ["scrub",
+         EXAMPLES_DIR,
+         "-r",
+         "-ext",
+         "jpg",
+         "--output",
+         str(output_dir)]
     )
 
     assert result.exit_code == 0, f"Failed with: {result.stdout}"
@@ -69,7 +77,12 @@ def test_scrub_command_recursive_jpg_success(output_dir):
 def test_scrub_command_dry_run(output_dir):
     """Test that --dry-run doesn't create files."""
     result = runner.invoke(
-        app, ["scrub", JPG_TEST_FILE, "--output", str(output_dir), "--dry-run"]
+        app,
+        ["scrub",
+         JPG_TEST_FILE,
+         "--output",
+         str(output_dir),
+         "--dry-run"]
     )
 
     assert result.exit_code == 0, f"Failed with: {result.stdout}"
@@ -136,7 +149,14 @@ def test_scrub_command_pdf_single_file_success(output_dir):
 def test_scrub_command_recursive_pdf_success(output_dir):
     """Test the 'scrub' command with recursive directory processing for PDF."""
     result = runner.invoke(
-        app, ["scrub", PDF_DIR, "-r", "-ext", "pdf", "--output", str(output_dir)]
+        app,
+        ["scrub",
+         PDF_DIR,
+         "-r",
+         "-ext",
+         "pdf",
+         "--output",
+         str(output_dir)]
     )
 
     assert result.exit_code == 0, f"Failed with: {result.stdout}"
@@ -147,7 +167,12 @@ def test_scrub_command_recursive_pdf_success(output_dir):
 def test_scrub_command_pdf_dry_run(output_dir):
     """Test that --dry-run doesn't create PDF files."""
     result = runner.invoke(
-        app, ["scrub", PDF_TEST_FILE, "--output", str(output_dir), "--dry-run"]
+        app,
+        ["scrub",
+         PDF_TEST_FILE,
+         "--output",
+         str(output_dir),
+         "--dry-run"]
     )
 
     assert result.exit_code == 0, f"Failed with: {result.stdout}"
@@ -171,7 +196,14 @@ def test_scrub_command_xlsx_single_file_success(output_dir):
 def test_scrub_command_recursive_xlsx_success(output_dir):
     """Test the 'scrub' command with recursive directory processing for Excel."""
     result = runner.invoke(
-        app, ["scrub", XLSX_DIR, "-r", "-ext", "xlsx", "--output", str(output_dir)]
+        app,
+        ["scrub",
+         XLSX_DIR,
+         "-r",
+         "-ext",
+         "xlsx",
+         "--output",
+         str(output_dir)]
     )
 
     assert result.exit_code == 0, f"Failed with: {result.stdout}"
@@ -182,7 +214,12 @@ def test_scrub_command_recursive_xlsx_success(output_dir):
 def test_scrub_command_xlsx_dry_run(output_dir):
     """Test that --dry-run doesn't create Excel files."""
     result = runner.invoke(
-        app, ["scrub", XLSX_TEST_FILE, "--output", str(output_dir), "--dry-run"]
+        app,
+        ["scrub",
+         XLSX_TEST_FILE,
+         "--output",
+         str(output_dir),
+         "--dry-run"]
     )
 
     assert result.exit_code == 0, f"Failed with: {result.stdout}"
@@ -232,7 +269,14 @@ def test_scrub_command_recursive_pptx_success(output_dir):
 
     PPTX_DIR = get_test_pptx_dir()
     result = runner.invoke(
-        app, ["scrub", PPTX_DIR, "-r", "-ext", "pptx", "--output", str(output_dir)]
+        app,
+        ["scrub",
+         PPTX_DIR,
+         "-r",
+         "-ext",
+         "pptx",
+         "--output",
+         str(output_dir)]
     )
 
     assert result.exit_code == 0, f"Failed with: {result.stdout}"
@@ -246,7 +290,12 @@ def test_scrub_command_pptx_dry_run(output_dir):
 
     PPTX_TEST_FILE = get_pptx_test_file()
     result = runner.invoke(
-        app, ["scrub", PPTX_TEST_FILE, "--output", str(output_dir), "--dry-run"]
+        app,
+        ["scrub",
+         PPTX_TEST_FILE,
+         "--output",
+         str(output_dir),
+         "--dry-run"]
     )
 
     assert result.exit_code == 0, f"Failed with: {result.stdout}"
@@ -299,7 +348,14 @@ def test_scrub_command_recursive_docx_success(output_dir):
 
     DOCX_DIR = get_test_docx_dir()
     result = runner.invoke(
-        app, ["scrub", DOCX_DIR, "-r", "-ext", "docx", "--output", str(output_dir)]
+        app,
+        ["scrub",
+         DOCX_DIR,
+         "-r",
+         "-ext",
+         "docx",
+         "--output",
+         str(output_dir)]
     )
 
     assert result.exit_code == 0, f"Failed with: {result.stdout}"
@@ -313,7 +369,12 @@ def test_scrub_command_docx_dry_run(output_dir):
 
     DOCX_TEST_FILE = get_docx_test_file()
     result = runner.invoke(
-        app, ["scrub", DOCX_TEST_FILE, "--output", str(output_dir), "--dry-run"]
+        app,
+        ["scrub",
+         DOCX_TEST_FILE,
+         "--output",
+         str(output_dir),
+         "--dry-run"]
     )
 
     assert result.exit_code == 0, f"Failed with: {result.stdout}"

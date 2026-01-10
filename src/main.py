@@ -7,6 +7,7 @@ It initializes the Typer app, registers commands, and configures logging.
 Commands:
     read: Display metadata from files.
     scrub: Remove metadata from files.
+    verify: Compare original and processed files to verify metadata removal.
 """
 
 import logging
@@ -15,14 +16,14 @@ import typer
 
 from src.commands.read import read
 from src.commands.scrub import scrub
+from src.commands.verify import verify
 from src.utils.logger import setup_logging
 
 # Initialize the Typer app with helpful defaults
-app = typer.Typer(no_args_is_help=True, pretty_exceptions_show_locals=False)
+app = typer.Typer(no_args_is_help = True, pretty_exceptions_show_locals = False)
 log = logging.getLogger("metadata-scrubber")
 
-
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 
 
 # ---------------------------------------------------------
@@ -59,7 +60,7 @@ def main(
     ),
 ):
     """
-    Metadata Scrubber Tool - Clean your images personal identifying data. eg: author name, camera model, GPS coordinates, etc.
+    Metadata Scrubber Tool - Clean your files' personal identifying data. eg: author name, camera model, GPS coordinates, etc.
     """
     # Initialize the logger based on the user's flag
     setup_logging(verbose)
@@ -69,8 +70,9 @@ def main(
 # fmt: on
 
 # register commands
-app.command(name="read")(read)
-app.command(name="scrub")(scrub)
+app.command(name = "read")(read)
+app.command(name = "scrub")(scrub)
+app.command(name = "verify")(verify)
 
 # run app
 if __name__ == "__main__":

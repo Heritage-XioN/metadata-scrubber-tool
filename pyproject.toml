@@ -1,6 +1,6 @@
 [project]
 name = "metadata-scrubber"
-version = "0.2.0"
+version = "0.3.0"
 description = "A privacy-focused CLI tool that removes sensitive metadata from image files"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -16,12 +16,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = [
-    "pytest>=9.0.0",
-    "pytest-cov>=6.0.0",
-    "mypy>=1.19.0",
-    "ruff>=0.14.0",
-]
+dev = []
 
 [project.scripts]
 mst = "src.main:app"
@@ -95,4 +90,13 @@ ignore_errors = true
 [[tool.mypy.overrides]]
 module = "src.services.worddoc_handler"
 ignore_errors = true
+
+[dependency-groups]
+dev = [
+    "mypy>=1.19.1",
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+    "ruff>=0.14.11",
+    "yapf>=0.43.0",
+]
 

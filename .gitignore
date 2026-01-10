@@ -47,3 +47,6 @@ Thumbs.db
 # ============== Project Specific ==============
 # Output directory for processed images
 tests/assets/output/
+
+
+.yapfignore/

@@ -33,7 +33,6 @@ class PDFHandler(MetadataHandler):
     Attributes:
         keys_to_delete: List of metadata keys to be wiped.
     """
-
     def __init__(self, filepath: str):
         """
         Initialize the PDF handler.
@@ -58,7 +57,7 @@ class PDFHandler(MetadataHandler):
         if ext != ".pdf":
             raise UnsupportedFormatError(f"Unsupported format: {ext}")
 
-        return ext[1:]  # Return 'pdf' without the dot
+        return ext[1 :]  # Return 'pdf' without the dot
 
     def read(self) -> dict[str, Any]:
         """

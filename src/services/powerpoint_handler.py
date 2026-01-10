@@ -64,7 +64,6 @@ class PowerpointHandler(MetadataHandler):
     Attributes:
         keys_to_delete: List of property names to be wiped.
     """
-
     def __init__(self, filepath: str):
         """
         Initialize the PowerPoint handler.
@@ -86,7 +85,7 @@ class PowerpointHandler(MetadataHandler):
             UnsupportedFormatError: If file extension is not a supported PowerPoint format.
         """
         ext = Path(self.filepath).suffix.lower()
-        normalised = FORMAT_MAP.get(ext[1:])  # Remove leading dot
+        normalised = FORMAT_MAP.get(ext[1 :])  # Remove leading dot
         if normalised is None:
             raise UnsupportedFormatError(f"Unsupported format: {ext}")
 

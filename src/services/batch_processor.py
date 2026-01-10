@@ -19,6 +19,7 @@ from rich.console import Console
 
 from src.services.metadata_factory import MetadataFactory
 
+
 log = logging.getLogger("metadata-scrubber")
 console = Console()
 
@@ -44,7 +45,7 @@ class BatchSummary:
     failed: int = 0
     dry_run: bool = False
     output_dir: Path | None = None
-    results: list[FileResult] = field(default_factory=list)
+    results: list[FileResult] = field(default_factory = list)
 
 
 class BatchProcessor:
@@ -55,7 +56,6 @@ class BatchProcessor:
     Supports dry-run mode, automatic duplicate suffix handling,
     and concurrent processing via ThreadPoolExecutor.
     """
-
     def __init__(
         self,
         output_dir: str | None = None,
@@ -99,12 +99,12 @@ class BatchProcessor:
             if self.dry_run:
                 # Verify the file can be handled (will raise if not)
                 MetadataFactory.get_handler(str(file))
-                output_path = self._get_unique_output_path(file, reserve=False)
+                output_path = self._get_unique_output_path(file, reserve = False)
                 result = FileResult(
-                    filepath=file,
-                    success=True,
-                    action="dry-run",
-                    output_path=output_path,
+                    filepath = file,
+                    success = True,
+                    action = "dry-run",
+                    output_path = output_path,
                 )
                 self._append_result(result)
                 log.debug(f"[DRY-RUN] Would process: {file}")
@@ -121,10 +121,10 @@ class BatchProcessor:
             handler.save(str(output_path))
 
             result = FileResult(
-                filepath=file,
-                success=True,
-                action="scrubbed",
-                output_path=output_path,
+                filepath = file,
+                success = True,
+                action = "scrubbed",
+                output_path = output_path,
             )
             self._append_result(result)
             if log.isEnabledFor(logging.DEBUG):
@@ -137,10 +137,10 @@ class BatchProcessor:
             self._cleanup_reserved_path(output_path)
 
             result = FileResult(
-                filepath=file,
-                success=False,
-                action="skipped",
-                error=str(e),
+                filepath = file,
+                success = False,
+                action = "skipped",
+                error = str(e),
             )
             self._append_result(result)
             if log.isEnabledFor(logging.DEBUG):
@@ -151,7 +151,8 @@ class BatchProcessor:
     def process_batch(
         self,
         files: Iterable[Path],
-        progress_callback: Callable[[FileResult], None] | None = None,
+        progress_callback: Callable[[FileResult],
+                                    None] | None = None,
     ) -> list[FileResult]:
         """
         Process multiple files concurrently using ThreadPoolExecutor.
@@ -170,10 +171,12 @@ class BatchProcessor:
             return self.results
 
         # Used ThreadPoolExecutor for I/O-bound concurrent processing
-        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+        with ThreadPoolExecutor(max_workers = self.max_workers) as executor:
             # Submit all files for processing
             future_to_file = {
-                executor.submit(self.process_file, file): file for file in file_list
+                executor.submit(self.process_file,
+                                file): file
+                for file in file_list
             }
 
             # Collect results as they complete
@@ -209,14 +212,14 @@ class BatchProcessor:
             results_copy = list(self.results)
 
         summary = BatchSummary(
-            total=len(results_copy),
-            success=sum(
+            total = len(results_copy),
+            success = sum(
                 1 for r in results_copy if r.success and r.action == "scrubbed"
             ),
-            skipped=sum(1 for r in results_copy if not r.success),
-            dry_run=self.dry_run,
-            output_dir=self.output_dir,
-            results=results_copy,
+            skipped = sum(1 for r in results_copy if not r.success),
+            dry_run = self.dry_run,
+            output_dir = self.output_dir,
+            results = results_copy,
         )
         # Count dry-run as separate from success for clarity
         if self.dry_run:
@@ -266,7 +269,7 @@ class BatchProcessor:
         """
         with self._path_lock:
             # creates the destination directory if it doesn't exist
-            self.output_dir.mkdir(parents=True, exist_ok=True)
+            self.output_dir.mkdir(parents = True, exist_ok = True)
 
             base_name = file.stem
             extension = file.suffix

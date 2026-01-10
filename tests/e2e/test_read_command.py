@@ -22,6 +22,7 @@ from tests.conftest import (
     get_xlsx_test_file,
 )
 
+
 runner = CliRunner()
 
 # Test file paths (cross-platform)

@@ -32,8 +32,7 @@ def test_read_image_metadata(x):
 
     # checks if tags_to_delete or text_keys_to_delete is not empty
     assert (
-        processor.tags_to_delete is not None
-        or processor.text_keys_to_delete is not None
+        processor.tags_to_delete is not None or processor.text_keys_to_delete is not None
     )
 
     # checks if metadata is a dictionary
@@ -62,7 +61,7 @@ def test_save_processed_image_metadata(x):
     """
     # creates output directory
     output_dir = Path("./tests/assets/output")
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents = True, exist_ok = True)
 
     processor = ImageHandler(x)
     metadata = processor.read()
@@ -116,7 +115,7 @@ def test_output_file_has_less_metadata(x):
     Test that the output file has metadata stripped
     """
     output_dir = Path("./tests/assets/output")
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents = True, exist_ok = True)
 
     # Process original file
     processor = ImageHandler(x)

@@ -61,7 +61,6 @@ class WorddocHandler(MetadataHandler):
     Attributes:
         keys_to_delete: List of property names to be wiped.
     """
-
     def __init__(self, filepath: str):
         """
         Initialize the Word document handler.
@@ -83,7 +82,7 @@ class WorddocHandler(MetadataHandler):
             UnsupportedFormatError: If file extension is not a supported Word format.
         """
         ext = Path(self.filepath).suffix.lower()
-        normalised = FORMAT_MAP.get(ext[1:])  # Remove leading dot
+        normalised = FORMAT_MAP.get(ext[1 :])  # Remove leading dot
         if normalised is None:
             raise UnsupportedFormatError(f"Unsupported format: {ext}")
 

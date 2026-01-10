@@ -15,6 +15,7 @@ from rich.text import Text
 
 from src.utils.formatter import clean_value
 
+
 console = Console()
 
 
@@ -37,7 +38,10 @@ def print_metadata_table(metadata: dict[str, Any]):
             "/Author",
             "/Creator",
         ],
-        "📸 Device Info": ["Make", "Model", "Software", "ExifVersion"],
+        "📸 Device Info": ["Make",
+                          "Model",
+                          "Software",
+                          "ExifVersion"],
         "⚙️ Exposure Settings": [
             "ExposureTime",
             "FNumber",
@@ -68,9 +72,9 @@ def print_metadata_table(metadata: dict[str, Any]):
     }
 
     # Create the main table
-    table = Table(box=box.ROUNDED, show_header=True, header_style="bold magenta")
-    table.add_column("Property", style="cyan")
-    table.add_column("Value", style="green")
+    table = Table(box = box.ROUNDED, show_header = True, header_style = "bold magenta")
+    table.add_column("Property", style = "cyan")
+    table.add_column("Value", style = "green")
 
     # Track which keys we have displayed to handle the "leftovers"
     displayed_keys = set()
@@ -82,7 +86,7 @@ def print_metadata_table(metadata: dict[str, Any]):
 
         if section_data:
             # Add a section row (acts as a sub-header)
-            table.add_row(Text(section_name, style="bold yellow"), "")
+            table.add_row(Text(section_name, style = "bold yellow"), "")
 
             for key, val in section_data.items():
                 table.add_row(f"  {key}", clean_value(val))
@@ -98,13 +102,16 @@ def print_metadata_table(metadata: dict[str, Any]):
         if k not in displayed_keys and k != "JPEGInterchangeFormat"
     }  # skip binary blobs
     if leftovers:
-        table.add_row(Text("📝 Other", style="bold yellow"), "")
+        table.add_row(Text("📝 Other", style = "bold yellow"), "")
         for key, val in leftovers.items():
             table.add_row(f"  {key}", clean_value(val))
 
     # Print nicely inside a panel
     console.print(
-        Panel(table, title="Metadata Report", border_style="blue", expand=False)
+        Panel(table,
+              title = "Metadata Report",
+              border_style = "blue",
+              expand = False)
     )
 
 
@@ -116,9 +123,9 @@ def print_batch_summary(summary) -> None:
         summary: BatchSummary object with processing statistics.
     """
     # Build the summary table
-    table = Table(box=box.ROUNDED, show_header=False, expand=False)
-    table.add_column("Metric", style="cyan")
-    table.add_column("Value", style="green")
+    table = Table(box = box.ROUNDED, show_header = False, expand = False)
+    table.add_column("Metric", style = "cyan")
+    table.add_column("Value", style = "green")
 
     if summary.dry_run:
         table.add_row("Mode", "[yellow]DRY-RUN (no changes made)[/yellow]")
@@ -135,8 +142,8 @@ def print_batch_summary(summary) -> None:
     failed = [r for r in summary.results if not r.success]
     if failed:
         table.add_section()
-        table.add_row(Text("Failed files:", style="bold red"), "")
-        for result in failed[:5]:  # Show max 5 failures
+        table.add_row(Text("Failed files:", style = "bold red"), "")
+        for result in failed[: 5]:  # Show max 5 failures
             table.add_row(f"  {result.filepath.name}", f"[dim]{result.error}[/dim]")
         if len(failed) > 5:
             table.add_row("", f"[dim]... and {len(failed) - 5} more[/dim]")
@@ -152,4 +159,9 @@ def print_batch_summary(summary) -> None:
         title = "⚠️ Scrub Complete (with warnings)"
         border_style = "yellow"
 
-    console.print(Panel(table, title=title, border_style=border_style, expand=False))
+    console.print(
+        Panel(table,
+              title = title,
+              border_style = border_style,
+              expand = False)
+    )

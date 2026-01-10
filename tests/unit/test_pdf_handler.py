@@ -69,7 +69,7 @@ def test_save_processed_pdf_metadata(pdf_file):
     Test saving processed PDF to output path.
     """
     output_dir = Path("./tests/assets/output")
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents = True, exist_ok = True)
 
     handler = PDFHandler(pdf_file)
     handler.read()
@@ -100,7 +100,7 @@ def test_output_file_has_less_metadata(pdf_file):
     Test that the output file has metadata stripped.
     """
     output_dir = Path("./tests/assets/output")
-    output_dir.mkdir(parents=True, exist_ok=True)
+    output_dir.mkdir(parents = True, exist_ok = True)
 
     # Process original file
     handler = PDFHandler(pdf_file)
