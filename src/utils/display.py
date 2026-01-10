@@ -33,6 +33,7 @@ def print_metadata_table(metadata: dict[str, Any]):
     groups = {
         "📄 Document Info": [
             "Author",
+            "author",
             "/Author",
             "/Creator",
         ],
@@ -59,6 +60,8 @@ def print_metadata_table(metadata: dict[str, Any]):
             "DateTimeOriginal",
             "DateTimeDigitized",
             "OffsetTime",
+            "created",
+            "modified",
             "/CreationDate",
             "/ModDate",
         ],
