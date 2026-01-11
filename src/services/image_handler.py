@@ -105,7 +105,7 @@ class ImageHandler(MetadataHandler):
             self.metadata = result["data"]
             self.tags_to_delete = result["tags_to_delete"]
             # Store text keys for PNG processing
-            if isinstance(result, PngProcessor):
+            if isinstance(processor, PngProcessor):
                 self.text_keys_to_delete = result.get("text_keys", [])
             return self.metadata
 

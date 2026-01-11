@@ -236,6 +236,46 @@ docs/
 
 ---
 
+## ⚠️ Known Limitations
+
+### File Format Support
+
+| Category | Supported | Not Supported |
+|----------|-----------|---------------|
+| **Images** | JPEG, PNG | TIFF, GIF, HEIC, WebP, RAW |
+| **Documents** | `.docx` | Legacy `.doc` |
+| **Spreadsheets** | `.xlsx`, `.xlsm`, `.xltx`, `.xltm` | Legacy `.xls` |
+| **Presentations** | `.pptx`, `.pptm`, `.potx`, `.potm` | Legacy `.ppt` |
+| **PDF** | Standard PDFs | Encrypted/password-protected |
+
+### Known Constraints
+
+- **No in-place editing** - Always creates a processed copy (by design for safety)
+- **Password-protected files** - Cannot process encrypted documents
+- **PNG metadata** - Many PNGs have minimal/no extractable metadata
+- **Embedded files** - Objects embedded in Office documents are not deep-scanned
+- **PDF embedded images** - Images inside PDFs retain their original metadata
+- **Large files** - Files are loaded into memory; very large files may be slow
+
+### PNG Verification Behavior
+
+When a PNG file has no EXIF metadata (only PngInfo text chunks), the scrub operation removes all text keys. Attempting to verify or read the processed file will show:
+
+```
+Error during verification: No metadata found in the PNG image.
+```
+
+**This is expected behavior** - the error confirms that all metadata has been successfully removed. You can also use `mst read processed_file.png` to verify; the same error indicates a clean file.
+
+### Future Enhancements
+
+- HEIC/HEIF support (common on iOS devices)
+- Legacy Office format support (`.doc`, `.xls`, `.ppt`)
+- Deep scanning of embedded objects
+- PDF embedded image metadata stripping
+
+---
+
 ## ⚠️ Security Considerations
 
 - **Original files are never modified** - processed copies are created
